@@ -19,9 +19,6 @@ public class Driver extends Application {
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {
-        String s = "مرحبا ك ي ف ا ل ح ا ل";
-        System.out.println(s);
-        System.out.println(new String("انا مروان".getBytes(), "UTF-8"));
         launch();
     }
 }
