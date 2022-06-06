@@ -1,35 +1,37 @@
 package com.example.projectai3;
 
 public class Type {
-    private String word;
+    private double prob;
     private int Freq;
 
-    public Type(String word, int freq) {
-        this.word = word;
-        Freq = freq;
+    public Type( int freq,double prob) {
+        this.Freq = freq;
+        this.prob = prob;
+
+    }
+    public Type(){
+
     }
 
-    public String getWord() {
-        return word;
+    public double getProb() {
+        return prob;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setProb(double prob) {
+        this.prob = prob;
     }
 
     public int getFreq() {
         return Freq;
     }
 
-    public void setFreq(int freq) {
+    public Type setFreq(int freq) {
         Freq = freq;
+        return this;
     }
 
     @Override
     public String toString() {
-        return "Type{" +
-                "word='" + word + '\'' +
-                ", Freq=" + Freq +
-                '}';
+        return "prob=" + prob +", Freq=" + Freq ;
     }
 }

@@ -8,9 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Controller {
+    HashMap<String, Type> dataHash= new HashMap<>();
+
 
     @FXML
     private Button dataFileButton;
@@ -33,6 +38,10 @@ public class Controller {
     final FileChooser fileChoose = new FileChooser();
     File  file;
 
+
+    public static void main(String[] args) {
+        System.out.println("سبسشب");
+    }
     @FXML
     void giveTheData(MouseEvent event) { // Text On Click
 
@@ -48,20 +57,45 @@ public class Controller {
 
 
     @FXML
-    void showDataFile(ActionEvent event) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "utf-8"));
+    void showDataFile(ActionEvent event)  {
 
-        //InputStreamReader s= new InputStreamReader(new FileInputStream(file), "UTF-8");
-
-        String line;
-        while((line = in.readLine()) != null){
-            worlds.setText(line);
-            System.out.println(new String(line.getBytes(), "UTF-8"));
-            System.out.println(new String("تعطي يونيكود رقما فريدا لكل حرف".getBytes(), "UTF-8"));
+        String outputFile = "converterData.xlsx";
 
 
+        try {
+            File myObj = new File(String.valueOf(file));
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                data = data.replaceAll("[0-9]"," ");
+                data = data.replaceAll("\\p{Punct}", " ");
+
+                data = data.replaceAll("،", " ");
+                data = data.replaceAll(":", " ");
+                data = data.replaceAll("؛", " ");
+                data = data.replaceAll("\\.", " ");
+                data = data.replaceAll("( )+", " ");
+                String[] strArray =data.split(" ");
+                for (int i=0;i<strArray.length;i++){
+                    if (!dataHash.containsKey(strArray[i])){
+                        dataHash.put(strArray[i],new Type(1,0));
+                    }
+                    else
+                        dataHash.put(strArray[i], dataHash.get(strArray[i]).setFreq(dataHash.get(strArray[i]).getFreq()+1));
+                }
+
+                System.out.println(data);
+                worlds.setText(data);
+
+
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
-        in.close();
+
+       // worlds.setText(data);
 
 
     }

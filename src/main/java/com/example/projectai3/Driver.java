@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class Driver extends Application {
     @Override
@@ -17,7 +18,10 @@ public class Driver extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedEncodingException {
+        String s = "مرحبا ك ي ف ا ل ح ا ل";
+        System.out.println(s);
+        System.out.println(new String("انا مروان".getBytes(), "UTF-8"));
         launch();
     }
 }

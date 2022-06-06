@@ -8,4 +8,5 @@ public class TriGram {
     HashMap<String, Integer> triGramModel = new HashMap<String, Integer>();
     HashMap triModel;
 
+
 }
