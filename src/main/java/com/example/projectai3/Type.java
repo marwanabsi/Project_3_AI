@@ -17,8 +17,9 @@ public class Type {
         return prob;
     }
 
-    public void setProb(double prob) {
+    public Type setProb(double prob) {
         this.prob = prob;
+        return this;
     }
 
     public int getFreq() {

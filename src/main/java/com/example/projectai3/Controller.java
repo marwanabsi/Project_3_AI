@@ -84,29 +84,34 @@ public class Controller {
                     else
                         dataHash.put(strArray[i], dataHash.get(strArray[i]).setFreq(dataHash.get(strArray[i]).getFreq()+1));
                 }
+                //Tow Words
                 for (int i=0;i<strArray.length;i++){
-                    if (!dataHash.containsKey(strArray[i] + " " + strArray[i + 1])&&i<strArray.length){
-                        dataHash.put((strArray[i]+" "+strArray[i+1]),new Type(1,0));
-                    }
-                    else {
-                        if (i<strArray.length-1){
-                        dataHash.put((strArray[i] + " " + strArray[i + 1]),
-                                dataHash.get(strArray[i] + " " + strArray[i + 1]).setFreq(dataHash.get(strArray[i] + " " + strArray[i + 1]).getFreq() + 1));
-                    }
+                    if (i<(strArray.length-1)){
+                        {
+                            if(!dataHash.containsKey(strArray[i] + " " + strArray[i + 1]))
+                                dataHash.put((strArray[i]+" "+strArray[i+1]),new Type(1,0));
+                            else
+                                dataHash.put((strArray[i] + " " + strArray[i + 1]),
+                                        dataHash.get(strArray[i] + " " + strArray[i + 1]).setFreq(dataHash.get(strArray[i]
+                                                + " " + strArray[i + 1]).getFreq() + 1));
+                        }
+
                     }
                 }
+                //Three Words
                 for (int i=0;i<strArray.length;i++){
-                    if (!dataHash.containsKey(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2])&&i<strArray.length){
+                    if (i<(strArray.length-2)){
+                        if (!dataHash.containsKey(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]))
                         dataHash.put((strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]),new Type(1,0));
+                        else
+                            dataHash.put((strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]),
+                                    dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).setFreq(dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).getFreq()+1));
                     }
-                    else{
-                        if (i<strArray.length-2){
-                        dataHash.put((strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]),
-                                dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).setFreq(dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).getFreq()+1));
-                }}}
-                prinOnFile();
-                System.out.println(data);
-                worlds.setText(data);
+                    }
+                prob();
+                printOnFile();
+//                System.out.println(data);
+//                worlds.setText(data);
 
 
             }
@@ -121,8 +126,29 @@ public class Controller {
 
     }
 
+    public void prob(){
+        for (String key : dataHash.keySet()){
+            String [] arrayOfString =  key.split(" ");
+            if (arrayOfString.length==2){
+               double pr1= dataHash.get(arrayOfString[0]).getFreq();
+                double pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
+                dataHash.put((arrayOfString[0] + " " + arrayOfString[1]),
+                        dataHash.get(arrayOfString[0] + " " + arrayOfString[1]).setProb((pr2/pr1)));
 
-    public void prinOnFile(){
+            }
+
+            if (arrayOfString.length==3){
+                double pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
+                double pr3= dataHash.get(key).getFreq();
+
+                dataHash.put(key,dataHash.get(key).setProb((pr3/pr2)));
+
+            }
+        }
+    }
+
+
+    public void printOnFile(){
        try {
            FileWriter fw = new FileWriter("output.csv",true);
            BufferedWriter bw = new BufferedWriter(fw);
@@ -137,7 +163,8 @@ public class Controller {
            for ( Map.Entry<String, Type> entry : dataHash.entrySet()) {
                String key = entry.getKey();
                Type tab = entry.getValue();
-               pw.println(key+","+tab.getFreq()+","+tab.getProb());
+               System.out.println(key+","+tab.getFreq()+","+tab.getProb());
+              // pw.println(key+","+tab.getFreq()+","+tab.getProb());
            }
 
            pw.flush();
