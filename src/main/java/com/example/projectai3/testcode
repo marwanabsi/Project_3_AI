@@ -1,0 +1,18 @@
+ HashMap<String, Integer> userHash = new HashMap<>();
+                String[] strArray = new String[userData.getLength()+1];
+
+                for (int i=0;i<userData.getLength();i++){
+                    strArray[i] = userData.getText().split(" ");
+                    userHash.put(strArray[i],i);
+                }
+                System.out.println(Arrays.toString(strArray));
+
+
+                int locationWord = userHash.get(selectedString[0]);
+
+                System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+                System.out.println("locationWord");
+
+                String targetWord = strArray[locationWord-1];
+
+                System.out.println("targetWord is ======= "+targetWord);

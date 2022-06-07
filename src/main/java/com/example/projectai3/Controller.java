@@ -4,10 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class Controller {
     private Button dataFileButton;
 
     @FXML
-    private TextField enterData;
+    private TextArea userData;
 
     @FXML
     private Button exitButton;
@@ -108,8 +109,10 @@ public class Controller {
                                     dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).setFreq(dataHash.get(strArray[i]+" "+strArray[i+1]+" "+strArray[i+2]).getFreq()+1));
                     }
                     }
+                NGram();
                 prob();
                 printOnFile();
+
 //                System.out.println(data);
 //                worlds.setText(data);
 
@@ -154,17 +157,12 @@ public class Controller {
            BufferedWriter bw = new BufferedWriter(fw);
            PrintWriter pw = new PrintWriter(bw);
 
-           for (int i=0;i<dataHash.size();i++){
-
-               System.out.println(dataHash.keySet());
-
-           }
 
            for ( Map.Entry<String, Type> entry : dataHash.entrySet()) {
                String key = entry.getKey();
                Type tab = entry.getValue();
                System.out.println(key+","+tab.getFreq()+","+tab.getProb());
-              // pw.println(key+","+tab.getFreq()+","+tab.getProb());
+               pw.println(key+","+tab.getFreq()+","+tab.getProb());
            }
 
            pw.flush();
@@ -174,6 +172,32 @@ public class Controller {
        }catch (Exception e){
 
        }
+
+    }
+
+
+    public void NGram(){
+
+        final String[] selectedString = new String[1];
+        userData.setOnContextMenuRequested(new EventHandler<Event>(){
+            @Override
+            public void handle(Event arg0){
+                selectedString[0] = userData.getSelectedText();
+            }
+
+
+        });
+
+        String target="my";
+        for (int i =0;i<dataHash.size();i++){
+            for (Map.Entry<String, Type> e : dataHash.entrySet()) {
+                if (e.getKey().startsWith("xxxx")) {
+                    //add to my result list
+                }
+            }
+
+        }
+
 
     }
 
