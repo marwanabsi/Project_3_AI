@@ -8,15 +8,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectai3.Controller">
+<AnchorPane fx:id="ancoScene" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projectai3.Controller">
    <children>
       <AnchorPane prefHeight="362.0" prefWidth="167.0" style="-fx-background-color: #0A4969;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="CENTER" prefHeight="244.0" prefWidth="167.0" spacing="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileData" text="ملف الكلمات" />
+                  <Button fx:id="openFileButton" mnemonicParsing="false" onAction="#openFileData" text=" اختيار ملف الكلمات" />
                   <Button fx:id="dataFileButton" mnemonicParsing="false" onAction="#showDataFile" text="جدول الكلمات" />
-                  <Button fx:id="restButton" mnemonicParsing="false" onAction="#resetApp" text="أعد التشغيل" />
+                  <Button fx:id="restButton" mnemonicParsing="false" onAction="#resetApp" text="افحص" />
                   <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitApp" text="خروج" />
                </children>
             </VBox>

@@ -1,6 +1,6 @@
 package com.example.projectai3;
 
-public class Type {
+public class Type  {
     private double prob;
     private int Freq;
 
