@@ -1,6 +1,6 @@
 package com.example.projectai3;
 
-public class ArrayNode {
+public class ArrayNode implements Comparable<ArrayNode>{
     private String key;
     private Type type;
 
@@ -28,5 +28,10 @@ public class ArrayNode {
     @Override
     public String toString() {
         return " الكلمة =  " + key +"\t نسبة التوقع =  " + type.getProb()+"\n";
+    }
+
+    @Override
+    public int compareTo(ArrayNode o) {
+        return Double.compare(this.getType().getProb(), o.getType().getProb());
     }
 }

@@ -23,13 +23,13 @@ public class Controller {
     ArrayList<Type> list = new ArrayList<Type>();
     LinkedHashMap<String, String> sortedMap = new LinkedHashMap<>();
 
-    double finalProl=0;
-    double p1 =0 ;
-    double p2 =0 ;
-    double p3 =0 ;
-    double p4 =0 ;
-    double p5 =0 ;
-    double p6 =0 ;
+    float finalProl=0;
+    float p1 =0 ;
+    float p2 =0 ;
+    float p3 =0 ;
+    float p4 =0 ;
+    float p5 =0 ;
+    float p6 =0 ;
     @FXML
     private Button dataFileButton;
 
@@ -131,19 +131,20 @@ public class Controller {
     }
 
     public void prob(){
+
         for (String key : dataHash.keySet()){
             String [] arrayOfString =  key.split(" ");
             if (arrayOfString.length==2){
-               double pr1= dataHash.get(arrayOfString[0]).getFreq();
-                double pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
+               float pr1= dataHash.get(arrayOfString[0]).getFreq();
+                float pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
                 dataHash.put((arrayOfString[0] + " " + arrayOfString[1]),
                         dataHash.get(arrayOfString[0] + " " + arrayOfString[1]).setProb((pr2/pr1)));
 
             }
 
             if (arrayOfString.length==3){
-                double pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
-                double pr3= dataHash.get(key).getFreq();
+                float pr2= dataHash.get(arrayOfString[0]+" "+arrayOfString[1]).getFreq();
+                float pr3= dataHash.get(key).getFreq();
 
                 dataHash.put(key,dataHash.get(key).setProb((pr3/pr2)));
 
@@ -233,26 +234,28 @@ public class Controller {
                         strArray[index] = arrayString[2];
                     }
 
-                    if (arraylistNew.length==2){
+                    if (arraylistNew.length>=2){
                         String key2=strArray[index-1]+" "+strArray[index];
                         if (dataHash.get(key2)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key2).getProb()!=0){
                                 prob= dataHash.get(key2).getProb();
                                 p1=prob;
                             }
 
                         }
+                        else
+                            p1=1;
 
 
                     }
                     else
                         p1=1;
 
-                    if (arraylistNew.length==3){
+                    if (arraylistNew.length>=3){
                         String key3=strArray[index-2]+" "+strArray[index-1]+" "+strArray[index];
                         if (dataHash.get(key3)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key3).getProb()!=0){
                                 prob= dataHash.get(key3).getProb();
                                 p2=prob;
@@ -260,14 +263,17 @@ public class Controller {
 
 
                         }
+                        else
+                            p2=1;
 
                     }
                     else
                         p2=1;
-                    if (arraylistNew.length==4){
+
+                    if (arraylistNew.length>=4){
                         String key4=strArray[index-2]+" "+strArray[index-1];
                         if (dataHash.get(key4)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key4).getProb()!=0){
                                 prob= dataHash.get(key4).getProb();
                                 p3=prob;
@@ -275,14 +281,16 @@ public class Controller {
 
 
                         }
+                        else
+                            p3=1;
 
                     }
                     else
                         p3=1;
-                    if (arraylistNew.length==5){
+                    if (arraylistNew.length>=5){
                         String key5=strArray[index-3]+" "+strArray[index-2]+" "+strArray[index-1];
                         if (dataHash.get(key5)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key5).getProb()!=0){
                                 prob= dataHash.get(key5).getProb();
                                 p4=prob;
@@ -290,15 +298,17 @@ public class Controller {
 
 
                         }
+                        else
+                            p4=1;
 
                     }
                     else
                         p4=1;
 
-                    if (arraylistNew.length==6){
+                    if (arraylistNew.length>=6){
                         String key6=strArray[index-3]+" "+strArray[index-2];
                         if (dataHash.get(key6)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key6).getProb()!=0){
                                 prob= dataHash.get(key6).getProb();
                                 p5=prob;
@@ -306,28 +316,33 @@ public class Controller {
 
 
                         }
+                        else
+                            p5=1;
 
                     }
                     else
                         p5=1;
 
-                    if (arraylistNew.length==7){
+                    if (arraylistNew.length>=7){
                         String key7=strArray[index-4]+" "+strArray[index-3]+" "+strArray[index-2];
                         if (dataHash.get(key7)!=null){
-                            double prob;
+                            float prob;
                             if (dataHash.get(key7).getProb()!=0){
                                 prob= dataHash.get(key7).getProb();
                                 p6=prob;
                             }
 
                         }
+                        else
+                            p6=1;
                     }
                     else
                         p6=1;
 
 
                     finalProl=p1*p2*p3*p4*p5*p6;
-                    ArrayNode a = new ArrayNode(strArray[index],new Type(0,finalProl));
+                    ArrayNode a = new ArrayNode(strArray[index],new Type(0,  finalProl));
+                    finalProl=0;
                     dataArray.add(a);
 
                 }
@@ -337,10 +352,10 @@ public class Controller {
                     if (arrayString[0].equals(targetWord)){
                         strArray[index]=arrayString[1];
 
-                        if (arraylistNew.length==2){
+                        if (arraylistNew.length>=2){
                             String key2=strArray[index-1]+" "+strArray[index];
                             if (dataHash.get(key2)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key2).getProb()!=0){
                                     prob= dataHash.get(key2).getProb();
                                     p1=prob;
@@ -348,15 +363,17 @@ public class Controller {
 
 
                             }
+                            else
+                                p1=1;
 
                         }
                         else
                             p1=1;
 
-                        if (arraylistNew.length==3){
+                        if (arraylistNew.length>=3){
                             String key3=strArray[index-2]+" "+strArray[index-1]+" "+strArray[index];
                             if (dataHash.get(key3)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key3).getProb()!=0){
                                     prob= dataHash.get(key3).getProb();
                                     p2=prob;
@@ -364,16 +381,18 @@ public class Controller {
 
 
                             }
+                            else
+                                p2=1;
 
                         }
                         else
                             p2=1;
 
 
-                        if (arraylistNew.length==4){
+                        if (arraylistNew.length>=4){
                             String key4=strArray[index-2]+" "+strArray[index-1];
                             if (dataHash.get(key4)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key4).getProb()!=0){
                                     prob= dataHash.get(key4).getProb();
                                     p3=prob;
@@ -381,15 +400,17 @@ public class Controller {
 
 
                             }
+                            else
+                                p3=1;
 
                         }
                         else
                             p3=1;
 
-                        if (arraylistNew.length==5){
+                        if (arraylistNew.length>=5){
                             String key5=strArray[index-3]+" "+strArray[index-2]+" "+strArray[index-1];
                             if (dataHash.get(key5)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key5).getProb()!=0){
                                     prob= dataHash.get(key5).getProb();
                                     p4=prob;
@@ -397,15 +418,17 @@ public class Controller {
 
 
                             }
+                            else
+                                p4=1;
 
                         }
                         else
                             p4=1;
 
-                        if (arraylistNew.length==6){
+                        if (arraylistNew.length>=6){
                             String key6=strArray[index-3]+" "+strArray[index-2];
                             if (dataHash.get(key6)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key6).getProb()!=0){
                                     prob= dataHash.get(key6).getProb();
                                     p5=prob;
@@ -413,22 +436,26 @@ public class Controller {
 
 
                             }
+                            else
+                                p5=1;
 
                         }
                         else
                             p5=1;
 
 
-                        if (arraylistNew.length==7){
+                        if (arraylistNew.length>=7){
                             String key7=strArray[index-4]+" "+strArray[index-3]+" "+strArray[index-2];
                             if (dataHash.get(key7)!=null){
-                                double prob;
+                                float prob;
                                 if (dataHash.get(key7).getProb()!=0){
                                     prob= dataHash.get(key7).getProb();
                                     p6=prob;
                                 }
 
                             }
+                            else
+                                p6=1;
 
                         }
                         else
@@ -439,17 +466,32 @@ public class Controller {
 
                     ArrayNode a = new ArrayNode(arrayString[1],new Type(0,finalProl));
                     dataArray.add(a);
+                    finalProl=0;
+
+                }
+                ArrayList<ArrayNode> topten = new ArrayList<>();
+               //Collections.sort(dataArray);
+
+                if (dataArray.size()>=10){
+                for (int i =0;i<10;i++){
+                    topten.add(dataArray.get(i));
+                }
+                    worlds.setText(topten.toString());
+                    topten.clear();
+
+                }
+                else{
+                worlds.setText(dataArray.toString());
+                    topten.clear();
+
 
                 }
 
-
-
-                worlds.setText(dataArray.toString());
-
             }
         }
-       
-       
+        dataArray.clear();
+
+
     }
 
 
